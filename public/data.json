@@ -1,0 +1,38 @@
+[
+  {
+    "department": "MA",
+    "courseNumber": 123,
+    "year": 2015,
+    "semester": "Spring"
+  },
+  {
+    "department": "CS",
+    "courseNumber": 111,
+    "year": 2016,
+    "semester": "Fall"
+  },
+  {
+    "department": "CS",
+    "courseNumber": 111,
+    "year": 2016,
+    "semester": "Winter"
+  },
+  {
+    "department": "CS",
+    "courseNumber": 222,
+    "year": 2017,
+    "semester": "Summer"
+  },
+  {
+    "department": "CS",
+    "courseNumber": 222,
+    "year": 2017,
+    "semester": "Fall"
+  },
+  {
+    "department": "CS",
+    "courseNumber": 222,
+    "year": 2016,
+    "semester": "Fall"
+  }
+]
