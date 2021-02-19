@@ -1,48 +1,17 @@
-// Helper from stackoverflow.com
-const checkProperties = (obj) => {
-  for (var key in obj) {
-    if (obj[key] !== null && obj[key] != "") return false;
-  }
-  return true;
-};
+import { normalizeYear, normalizeSemester } from "./normalize";
 
-const isNumber = (n) => Number.isInteger(Number(n));
+export const isNumber = (n: string) => Number.isInteger(Number(n));
 
-const normalizeSemester = (val: string) => {
-  val = val.toLocaleLowerCase();
-  switch (val) {
-    case "f":
-    case "fall":
-      return "Fall";
-    case "w":
-    case "winter":
-      return "Winter";
-    case "s":
-    case "spring":
-      return "Spring";
-    case "su":
-    case "summer":
-      return "Summer";
-  }
-  return false;
-};
+// Got refactored few times
+// First this was just a big function with IF inside of IFs inside of more IFs
+// I divided it in the normalizing function (that don't share data) and few closures (wich will share the state)
+// It also took a while and couple different tries to get all cases on checkForDepartmentAndCourse()
 
-const normalizeYear = (val: string | number) => {
-  val = Number(val);
-  if (!val || val > 2999 || val < 0) {
-    return false;
-  }
-  if (val < 2000) {
-    return 2000 + val;
-  }
-  return val;
-};
-
-export const getCourseFilters = (val: string) => {
+export function getCourseFilters(val: string) {
   const words = val.split(" ");
   const delimiters = ["-", ":"];
 
-  const state = {
+  let state = {
     error: false,
     filter: {
       department: null as null | string,
@@ -52,20 +21,23 @@ export const getCourseFilters = (val: string) => {
     }
   };
 
-  const checkForDepartmentAndCourse = (word) => {
+  const checkForDepartmentAndCourse = (word: string) => {
     const delimiter = delimiters.filter((d) => new RegExp(d, "gi").test(word));
     // it can be a department + course n. since there is a delimiter
     if (delimiter.length === 1) {
-      const [department, couseNumber] = word.toLowerCase().split(delimiter[0]);
+      const [department, couseNumber] = word.toUpperCase().split(delimiter[0]);
       state.filter.department = department;
       state.filter.couseNumber = Number(couseNumber);
       return;
     }
     // it can be a department + course n. since there is letters with numbers
     if (/\d/.test(word)) {
-      const [department, couseNumber] = word.split(/(\d+)/).filter(Boolean);
+      const [department, couseNumber] = word
+        .toUpperCase()
+        .split(/(\d+)/)
+        .filter(Boolean);
       state.filter.department = department;
-      state.filter.couseNumber = couseNumber;
+      state.filter.couseNumber = Number(couseNumber);
       return;
     }
     // there is only a number, it is not a valid format
@@ -73,10 +45,10 @@ export const getCourseFilters = (val: string) => {
       state.error = true;
       return;
     }
-    state.filter.department = word;
+    state.filter.department = word.toUpperCase();
   };
 
-  const checkSemesterAndYear = (word1, word2) => {
+  const checkSemesterAndYear = (word1: string, word2?: string) => {
     let semester, year;
 
     // only one word, but no year
@@ -124,20 +96,27 @@ export const getCourseFilters = (val: string) => {
   if (state.error) return state; // there is an error when checking for the department name
 
   if (!state.filter.couseNumber) {
-    const couseNumber = Number(words[1]);
-    if (Number.isNaN(couseNumber)) {
+    if (!isNumber(words[1])) {
       // make sure that it is the course number and not a string
       state.error = true;
       return state;
     }
-    state.filter.couseNumber = couseNumber;
-    checkSemesterAndYear(words[2], words[3] || null);
+    state.filter.couseNumber = Number(words[1]);
+
+    checkSemesterAndYear(words[2], words[3]);
   } else {
-    checkSemesterAndYear(words[1], words[2] || null);
+    checkSemesterAndYear(words[1], words[2]);
   }
 
   // check if all the filters are fulfilled
-  if (!checkProperties(state.filter)) state.error = true;
+  if (
+    !state.filter.couseNumber ||
+    !state.filter.department ||
+    !state.filter.semester ||
+    !state.filter.year
+  ) {
+    state.error = true;
+  }
 
   return state;
-};
+}

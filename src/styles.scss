@@ -1,0 +1,36 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+
+  h1 img {
+    max-width: 300px;
+  }
+}
+.home-spinner {
+  text-align: center;
+}
+
+#course_search {
+  .btn-primary {
+    background-color: #fff;
+    color: #001A96;
+    border-color: #001A96;
+  }
+  .btn-primary.disabled, .btn-primary:disabled {
+    color: #383d41;
+    background-color: #e2e3e5;
+    border-color: #d6d8db;
+  }
+}
+
+.course_card {
+  .card-title {
+    background-color: #001A96;
+    color: white;
+    margin: -1.25rem -1.25rem .5rem;
+    padding: .5rem 1.25rem;
+  }
+  .light{
+    color: #6f7071
+  }
+}
