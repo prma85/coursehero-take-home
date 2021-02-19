@@ -90,6 +90,7 @@ const AppWithApi: React.FC = () => {
           </a>
         </h1>
         <h2>Start searching for your next course!</h2>
+        <p>This seach will try to find your course on the Database</p>
       </div>
       {isLoading ? (
         <div className="home-spinner mt-5 mb-5">
