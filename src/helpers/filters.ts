@@ -7,6 +7,10 @@ interface Filter {
   year: null | number;
   semester: null | string;
 }
+interface State {
+  error: boolean;
+  filter: Filter;
+}
 
 // Got refactored few times
 // First this was just a big function with IF inside of IFs inside of more IFs
@@ -16,14 +20,14 @@ export function getCourseFilters(val: string) {
   const words = val.split(" ");
   const delimiters = ["-", ":"];
 
-  let state = {
+  let state: State = {
     error: false,
     filter: {
       department: null,
       courseNumber: null,
       year: null,
       semester: null
-    } as Filter
+    }
   };
 
   const checkForDepartmentAndCourse = (word: string) => {
