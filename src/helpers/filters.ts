@@ -68,17 +68,14 @@ export function getCourseFilters(val: string) {
 
     // semester and year are only one word or the info is incomplete
     if (word2) {
-      if (isNumber(word1)) {
-        year = word1;
-        semester = word2;
-      } else {
-        year = word2;
-        semester = word1;
-      }
+      year = isNumber(word1) ? word1 : word2;
+      semester = isNumber(word1) ? word2 : word1;
 
       // There is no word 2, in this case, semester and year are togheter
     } else {
-      [semester, year] = word1.split(/(\d+)/).filter(Boolean);
+      const [seg1, seg2] = word1.split(/(\d+)/).filter(Boolean);
+      year = isNumber(seg1) ? seg1 : seg2;
+      semester = isNumber(seg1) ? seg2 : seg1;
     }
 
     const parsedSemester = normalizeSemester(semester);
