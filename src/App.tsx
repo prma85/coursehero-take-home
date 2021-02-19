@@ -1,10 +1,9 @@
 import "./styles.scss";
 import React, { useEffect, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import Search from "./components/Search";
 import CourseContainer from "./components/Course";
 import { Course, getCourseList } from "./db";
-import Spinner from "react-bootstrap/Spinner";
 import { getCourseFilters } from "./helpers/filters";
 
 interface State {
@@ -56,7 +55,7 @@ const App = () => {
     if (!error) {
       searchResult = state.data.find(
         (course) =>
-          course.courseNumber === filter.couseNumber &&
+          course.courseNumber === filter.courseNumber &&
           course.department === filter.department &&
           course.semester === filter.semester &&
           course.year === filter.year
