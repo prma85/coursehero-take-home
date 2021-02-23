@@ -26,7 +26,7 @@ const Search: React.FC<SearchProps> = ({
   return (
     <Form id="course_search" noValidate onSubmit={handleSubmit}>
       <Form.Row>
-        <Form.Group as={Col} md="9" controlId="validationSearch">
+        <Form.Group as={Col} xs="9" controlId="validationSearch">
           <Form.Label className="mb-0">Course</Form.Label>
           <Form.Control
             type="text"
@@ -39,7 +39,7 @@ const Search: React.FC<SearchProps> = ({
             {errorMessage}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group as={Col} md="3" controlId="validationSearch">
+        <Form.Group as={Col} xs="3" controlId="searchSubmit">
           <Button
             style={{ width: "100%" }}
             type="submit"

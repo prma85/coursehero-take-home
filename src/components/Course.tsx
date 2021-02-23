@@ -9,33 +9,33 @@ interface CourseProps {
 const Course: React.FC<CourseProps> = ({ course }) => {
   const title = `${course.department} ${course.courseNumber}`;
   return (
-    <Card className="course_card">
+    <Card className="course_card mb-3">
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>
           <Row>
-            <Col md="4" className="light">
+            <Col xs="4" className="light">
               Department
             </Col>
-            <Col md="8">{course.department}</Col>
+            <Col xs="8">{course.department}</Col>
           </Row>
           <Row>
-            <Col md="4" className="light">
+            <Col xs="4" className="light">
               Course
             </Col>
-            <Col md="8">{course.courseNumber}</Col>
+            <Col xs="8">{course.courseNumber}</Col>
           </Row>
           <Row>
-            <Col md="4" className="light">
+            <Col xs="4" className="light">
               Year
             </Col>
-            <Col md="8">{course.year}</Col>
+            <Col xs="8">{course.year}</Col>
           </Row>
           <Row>
-            <Col md="4" className="light">
+            <Col xs="4" className="light">
               Semester
             </Col>
-            <Col md="8">{course.semester}</Col>
+            <Col xs="8">{course.semester}</Col>
           </Row>
         </Card.Text>
       </Card.Body>
